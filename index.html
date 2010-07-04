@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>#</title>
+	
+	<style type="text/css" media="screen">
+	body {
+		overflow: hidden;
+		
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	div.column {
+		width: 14px;
+		float: left;
+	}
+	
+	#sm2-container {
+		opacity: 0;
+	}
+	</style>
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script type="text/javascript" src="underscore.js"></script>
+	<script type="text/javascript" src="color.js"></script>
+	<script type="text/javascript" src="rgb2hex.js"></script>
+	
+	<script type="text/javascript" src="setup.js"></script>
+	<script type="text/javascript" src="helper.js"></script>
+	
+	<script type="text/javascript" src="/soundmanagerv296a-20100606/script/soundmanager2.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	var column = new Array();
+	var colors = ['red', 'white', 'blue'];
+	
+	soundManager.url = '/soundmanagerv296a-20100606/swf/';
+	soundManager.debugMode = false;
+	soundManager.flashVersion = 9;
+	soundManager.useHighPerformance = true;
+	soundManager.useFlashBlock = false;
+
+	soundManager.flash9Options.useWaveformData = false;
+	soundManager.flash9Options.useEQData = true;
+	soundManager.flash9Options.usePeakData = false;
+
+	soundManager.onload = function() {
+		soundManager.createSound({
+			id: 'track_one',
+			// url: '/letstry.razorfish.com/empire-state-of-mind.mp3',
+			// url: '/letstry.razorfish.com/tik-tok.mp3',
+			// url: '/letstry.razorfish.com/exhibit-c.mp3',
+			// url: '/letstry.razorfish.com/just-a-friend.mp3',
+			// url: '/letstry.razorfish.com/party-and-bullshit.mp3',
+			// url: '/letstry.razorfish.com/paper-planes.mp3',
+			url: '/letstry.razorfish.com/dirt-off-your-shoulder.mp3',
+			whileplaying: function() {
+
+				var divider = 7;
+				var split = Math.floor( this.eqData.length / divider );
+				
+				for( var i = 0; i <= split; i++ ) {
+					var eqData = this.eqData[i];
+					var height = 1 + Math.floor( eqData * 30 );
+					// var color = colors[ i % 3 ];
+					
+					var shadeOfGray = eqData * 255;
+					var color = '#' + rgb2hex.to( Math.random() * shadeOfGray, Math.random() * shadeOfGray, Math.random() * shadeOfGray );
+					
+					animateColumn( split-i, height, color, 'transparent' );
+					animateColumn( split+i, height, color, 'transparent' );
+				}
+			}
+		});
+		
+		soundManager.play('track_one');
+
+		$('body').css({
+			'background-color': '#999'
+		}).animate({
+			'background-color': '#111'
+		}, 3000).mousedown(function() {
+			soundManager.togglePause('track_one');
+		});
+	}
+	</script>
+</head>
+
+<body>
+	
+	
+	
+</body>
+</html>

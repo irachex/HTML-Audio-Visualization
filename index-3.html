@@ -49,7 +49,10 @@
 	
 	function animateDot( dot, color, around ) {
 		
-		dot.style.backgroundColor = color;
+		// dot.style.backgroundColor = color;
+		$(dot).stop().animate({
+			'backgroundColor': color
+		}, 100)
 		
 		if( around ) {
 			var row = parseInt( $(dot).attr('row') );

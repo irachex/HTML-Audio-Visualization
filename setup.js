@@ -14,6 +14,7 @@ $(document).ready(function() {
 				.addClass('row-' + row)
 				.addClass('column-' + column)
 				.addClass('column-' + column + '-img')
+				.attr('id', 'column-' + column + '-row-' + row)
 				.appendTo('div.column-' + column);
 			
 		});

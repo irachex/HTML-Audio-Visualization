@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>#</title>
+	
+	<style type="text/css" media="screen">
+	body {
+		overflow: hidden;
+		
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	div.column {
+		width: 14px;
+		float: left;
+	}
+	
+	.active {
+		background: red;
+	}
+	
+	img {
+		-webkit-transition: backgroundColor 0.2s ease-out;
+	}
+	</style>
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script type="text/javascript" src="underscore.js"></script>
+	<script type="text/javascript" src="color.js"></script>
+	<script type="text/javascript" src="rgb2hex.js"></script>
+	
+	<script type="text/javascript" src="setup.js"></script>
+	<script type="text/javascript" src="helper.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	var colors = ['red', 'white', 'blue'];
+	
+	$(document).ready(function() {
+		
+		$('body').bind('mousemove', function(e) {
+			var target = e.target;
+			
+			if( target.nodeName == 'IMG' ) {
+				// target.style.backgroundColor = colors[ Math.floor( Math.random() * 3 ) ];
+				// animateDot( target, colors[ Math.floor( Math.random() * 3 ) ], true );
+				animateDot( target, '#' + rgb2hex.random(), true );
+			}
+		});
+		
+		setInterval(function() {
+			var $elems = document.getElementsByClassName('glimmer');
+			for( var i = 0; i<$elems.length; i++ ) {
+				$elems[i].style.backgroundColor = '#' + rgb2hex.random();
+			}
+		}, 100);
+	});
+	
+	function animateDot( dot, color, around ) {
+		
+		// dot.style.backgroundColor = color;
+		$(dot).stop().animate({
+			'backgroundColor': color
+		}, 100).addClass('glimmer');
+		
+		if( around ) {
+			var row = parseInt( $(dot).attr('row') );
+			var column = parseInt( $(dot).attr('column') );
+
+			animateDot( document.getElementById('column-' + (column+1) + '-row-' + (row) ), '#' + rgb2hex.random() );
+			animateDot( document.getElementById('column-' + (column-1) + '-row-' + (row) ), '#' + rgb2hex.random() );
+			animateDot( document.getElementById('column-' + (column) + '-row-' + (row-1) ), '#' + rgb2hex.random() );
+			animateDot( document.getElementById('column-' + (column) + '-row-' + (row+1) ), '#' + rgb2hex.random() );
+		}
+		
+	}
+	</script>
+</head>
+
+<body>
+	
+	
+	
+</body>
+</html>
